@@ -89,3 +89,15 @@ def lemmatizer(string):
     a=[wl.lemmatize(tag[0], get_wordnet_pos(tag[1])) for idx, tag in enumerate(word_pos_tags)] # Map the position tag and lemmatize the word/token
     return " ".join(a)
 ```
+
+# Data Analysis
+## K-Means Clustering & BERT Extractive Summarizer
+K-Means Clustering is one of the simplest and most popular unsupervised machine learning algorithms. It finds the optimized k number of centroids of a given dataset. To find out how the tweets about Activision and Call of Duty are clustered, we decided to use the K-Means algorithm to achieve that and then use BERT Extractive Summarizer to find the most representative sentences from each cluster. And the following are the steps of this analysis:
+
+* Step 1: BERT Embedding
+
+> Before we can start the analysis, we need to first vectorize the sentences. There are many different ways to accomplish that, but in our case, we decided to go with BERT to transform the tweets into tensors. BERT has many different versions that are trained with corpus in different domains. However, in our analysis, we decided to use the generic BERT, which usually returns the best results. 
+
+* Step 2: Find the Optimal K
+
+> Although we are free to choose the value of K depending on how many clusters we want to see, there are mathematic methods that can determine the optimal number of clusters. There are numerous methods for this purpose, and we choose the elbow plot and dendrogram for our analysis. Sometimes the two visualizations return different optimal k, which requires more of a judgment call. Fortunately, both plots returned the same, k = 4, for the tweets we collected. 
