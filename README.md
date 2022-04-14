@@ -101,3 +101,11 @@ K-Means Clustering is one of the simplest and most popular unsupervised machine 
 * Step 2: Find the Optimal K
 
 > Although we are free to choose the value of K depending on how many clusters we want to see, there are mathematic methods that can determine the optimal number of clusters. There are numerous methods for this purpose, and we choose the elbow plot and dendrogram for our analysis. Sometimes the two visualizations return different optimal k, which requires more of a judgment call. Fortunately, both plots returned the same, k = 4, for the tweets we collected. 
+
+* Step 3: Clustering
+
+> Once all the setup is done, we imported KMeans from sci-kit learn and ran the clustering with k = 4. 
+
+* Step 4: 
+
+> Finally, we use BERT Extractive Summarizer to find the representative sentences from each cluster. 
