@@ -22,3 +22,26 @@ Due to the analytical approaches that we decided to adopt, there is a need for t
 **Remove links:** many tweets contain links to a photo or a video, and sometimes a website. These strings do not contribute to our analysis. So they should be removed from our data.
 
 **@ and #:** Most tweets contain many @ and # which allowed the tweets to be identified in certain topics. However, when querying tweets on a certain topic, the @ and # will be very repetitive most of the time. In our case, there might be a lot of “@reMarkable”, or “#tablet”, and these words might skew out text analysis later, so we think that should be removed.
+
+We wrote a function for cleaning these things. We used .encode() method to use ACSII encoding, removing the odd character. And then several regex expression to remove the links, @ and #. 
+
+The python code looks like this: 
+```ruby
+import regex as re
+def clean_tweets(sent):
+    # put everythin in lower case
+    sent = sent.lower()
+    # encode to ascii unicode, it removes strange characters
+    sent = sent.encode('ascii', 'ignore').decode() 
+    # remove https
+    sent = re.sub(r'https\S+', '', sent)    
+    # remove http
+    sent = re.sub(r'http\S+', '', sent)   
+    # remove @
+    sent = re.sub(r'@\S+', '', sent)     
+    # remove #
+    sent = re.sub(r'#\S+', '', sent) 
+    sent = " ".join(sent.split())
+    return sent
+```
+
