@@ -44,4 +44,48 @@ def clean_tweets(sent):
     sent = " ".join(sent.split())
     return sent
 ```
+* Step 2: Stopword Removal and Lemmatization 
 
+Stopwords are words that do not provide too much semantic meaning to the sentence. We imported stopwords from the NLTK library and wrote a function for the stopwords removal. After removing the stopwords, we wrote another function that would lemmatize each tweet. And the reason why there is a need to lemmatize the words is that the same word can be in different variations, and that could skew the text mining processes if they are not formatted to their root word form. 
+
+```ruby
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+stop_words = stopwords.words('english')
+
+# function to remove stopwords
+def remove_stopwords(tweets):
+  all_tweet = tweets.split(' ')
+  rem_text = " ".join([i for i in all_tweet if i not in stop_words])
+  return rem_text
+  
+from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet
+from nltk.stem import WordNetLemmatizer
+import nltk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+nltk.download('stopwords')
+
+wl = WordNetLemmatizer()
+ 
+# this is a helper function to map NTLK position tags
+def get_wordnet_pos(tag):
+    if tag.startswith('J'):
+        return wordnet.ADJ
+    elif tag.startswith('V'):
+        return wordnet.VERB
+    elif tag.startswith('N'):
+        return wordnet.NOUN
+    elif tag.startswith('R'):
+        return wordnet.ADV
+    else:
+        return wordnet.NOUN
+
+def lemmatizer(string):
+    word_pos_tags = nltk.pos_tag(word_tokenize(string)) # Get position tags
+    a=[wl.lemmatize(tag[0], get_wordnet_pos(tag[1])) for idx, tag in enumerate(word_pos_tags)] # Map the position tag and lemmatize the word/token
+    return " ".join(a)
+```
